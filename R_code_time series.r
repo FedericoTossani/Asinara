@@ -74,9 +74,3 @@ plotRGB(p193r32_2014c, 5,3,2, stretch="lin")
 
 
 
-
-
-
-
-
-
