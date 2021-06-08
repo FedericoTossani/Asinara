@@ -62,25 +62,15 @@ p193r32_2021<-stack(import21)
 
 #a questo punto abbiamo le immagini composte dalle 7 bande Landsat dal 2013-2021
 
-
 #plot dell'immagine e crop per avere lo zoom sull'Asinara
-plotRGB(p193r32_2014, 4, 3, 2, stretch="lin")
-p193r32_2014c<-crop(p193r32_2014,drawExtent(show=TRUE, col="red"))
-p193r32_2014c<-extent(p193r32_2014, 425985, 449085, 4532895, 4557075)
+plotRGB(p193r32_2014, 4, 3, 2, stretch="lin") #immagine completa
 
-plot(p193r32_2014c)
-plotRGB(p193r32_2014c, 5,3,2, stretch="lin")
-
+#ora uso la funzione crop per tagliare l'immagine e fare lo zoom sull'area di interesse
 #extent     : 425985, 449085, 4532895, 4557075  (xmin, xmax, ymin, ymax)
 #extent     : 429435, 448155, 4531395, 4557645  (xmin, xmax, ymin, ymax)
+p193r32_2014c<-crop(p193r32_2014, extent(425985, 449085, 4532895, 4557075))
 
-ee <- extent(425985, 449085, 4532895, 4557075)
-
-p193r32_2014<-setExtent(p193r32_2014, ee, keepres=FALSE, snap=FALSE)
-plotRGB(p193r32_2014, 4, 3, 2, stretch="lin")
-
-p193r32_2014c<-crop(p193r32_2014, ee)
-
+plotRGB(p193r32_2014c, 5,3,2, stretch="lin")
 
 
 
