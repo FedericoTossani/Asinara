@@ -5,7 +5,7 @@
 # progetto per l'esame di Telerilevamento geo_ecologico
 
 # Analisi da remoto della vegetaione del Parco Nazionale dell'Asinara
-# Il dataset è formato da immagini Landsat dal 1984 al 2021.
+# Il dataset di immagini Landsat copre il periodo dal 1984 al 2021.
 # Tot. img: 28
 # Anni mancanti: 1986, 1994, 1998, 2004, 2005, 2008, 2009, 2011, 2012
 # Obiettivo: valutare il cambiamento della vegetazione dopo la chiusura del carcere e la fine della manutenzione agricola dell'isola
@@ -19,7 +19,8 @@
 #  2.1 Estensione del crop
 #  2.2 Importazione delle bande e creazione rasterBrick
 #  2.3 Importazione dei rasterBrick
-# 3.
+# 3. Studio della vaiabilità
+
 
 ########################################
 #### 1. Library & Working directory ####
@@ -275,6 +276,9 @@ asilist<-list.files(pattern="Asi_")
 asimport<-lapply(asilist, brick)
 asinara<-stack(asimport)
 
+# Importare tutte le immagine con la funzione lapply non funziona, o meglio, diventa un file troppo pesante che il computer non riesce ad aprire.
+
+
 # Elenco immagini 
 # p84, p85, p87, p88, p89, p90, p91, p92, p93, p95, p96, p97, p99, p00, p01, p02, p03, p06, p07, p10, p13, p14, p15, p16, p17, p18, p19, p20, p21
 # Elenco plot
@@ -309,6 +313,36 @@ p18<-brick("Asi_p193r32_2018.grd")
 p19<-brick("Asi_p193r32_2019.grd")
 p20<-brick("Asi_p193r32_2020.grd")
 p21<-brick("Asi_p193r32_2021.grd")
+
+
+asilist<-list.files(pattern="Asi_")
+asimport<-lapply(asilist, brick)
+asinara<-stack(asimport)
+
+
+
+
+
+
+nir<-sentinel$sentinel.1
+red<-sentinel$sentinel.2
+ndvi<-(nir-red)/(nir+red)
+
+nir84<-p84$p193r32_1984_SR_B4
+red84<-p84$p193r32_1984_SR_B3
+ndvi84<-(nir84-red84)/(nir84+red84)
+
+nir19<-p19$p193r32_2019_SR_B4
+red19<-p19$p193r32_2019_SR_B3
+ndvi19<-(nir20-red19)/(nir19+red19)
+par(mfrow=c(1,2))
+plot(ndvi84)
+plot(ndvi19)
+
+
+nir20<-p20$p193r32_2020_SR_B4
+red20<-p20$p193r32_2020_SR_B3
+ndvi20<-(nir20-red20)/(nir20+red20)
 
 
 #Generazione dei plot RGB
