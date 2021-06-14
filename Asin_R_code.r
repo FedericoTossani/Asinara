@@ -17,7 +17,7 @@
 # 1. Library & Working directory
 # 2. Preparazione dataset
 #  2.1 Estensione del crop
-#  2.2 Importazione delle immagini e creazione rasterBrick
+#  2.2 Importazione delle bande e creazione rasterBrick
 #  2.3 Importazione dei rasterBrick
 # 3.
 
@@ -63,6 +63,9 @@ setwd("/Users/federicotossani/Asinara/L_image")
 #ymax       : 4553130 
 
 ### 2.2 Importazione delle immagini e creazione rasterBrick ###
+
+# Ho usato queste funzioni per accorpare tutte le bande in un unico raster la prima volta che ho scaricato e importato le immagini.
+# Nelle successive analisi ho caricato i file direttamente dal punto 2.3.
 
 ## 1984 ##
 list84<-list.files(pattern="1984")
