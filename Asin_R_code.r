@@ -69,7 +69,6 @@ import84<-lapply(list84, raster)
 p84t<-stack(import84)
 p84<-crop(p84t, extent(431858.1, 445413, 4532960, 4552802))
 writeRaster(p84, filename="Asi_p193r32_1984.grd", format="raster")
-p84p<-plotRGB(p84, r=4, g=3, b=2, stretch="lin")
 
 ## 1985 ##
 list85<-list.files(pattern="1985")
@@ -77,7 +76,6 @@ import85<-lapply(list85, raster)
 p85t<-stack(import85)
 p85<-crop(p85t, extent(431858.1, 445413, 4532960, 4552802))
 writeRaster(p85, filename="Asi_p193r32_1985.grd", format="raster")
-p85p<-plotRGB(p85, r=4, g=3, b=2, stretch="lin")
 
 ## 1987 ##
 list87<-list.files(pattern="1987")
@@ -85,7 +83,6 @@ import87<-lapply(list87, raster)
 p87t<-stack(import87)
 p87<-crop(p87t, extent(431858.1, 445413, 4532960, 4552802))
 writeRaster(p87, filename="Asi_p193r32_1987.grd", format="raster")
-p87p<-plotRGB(p87, r=4, g=3, b=2, stretch="lin")
 
 ## 1988 ##
 list88<-list.files(pattern="1988")
@@ -93,7 +90,6 @@ import88<-lapply(list88, raster)
 p88t<-stack(import88)
 p88<-crop(p88t, extent(431858.1, 445413, 4532960, 4552802))
 writeRaster(p88, filename="Asi_p193r32_1988.grd", format="raster")
-p88p<-plotRGB(p88, r=4, g=3, b=2, stretch="lin")
 
 ## 1989 ##
 list89<-list.files(pattern="1989")
@@ -101,7 +97,6 @@ import89<-lapply(list89, raster)
 p89t<-stack(import89)
 p89<-crop(p89t, extent(431858.1, 445413, 4532960, 4552802))
 writeRaster(p89, filename="Asi_p193r32_1989.grd", format="raster")
-p89p<-plotRGB(p89, r=4, g=3, b=2, stretch="lin")
 
 ## 1990 ##
 list90<-list.files(pattern="1990")
@@ -109,7 +104,6 @@ import90<-lapply(list90, raster)
 p90t<-stack(import90)
 p90<-crop(p90t, extent(431858.1, 445413, 4532960, 4552802))
 writeRaster(p90, filename="Asi_p193r32_1990.grd", format="raster")
-p90p<-plotRGB(p90, r=4, g=3, b=2, stretch="lin")
 
 ## 1991 ##
 list91<-list.files(pattern="1991")
@@ -299,6 +293,16 @@ p21p<-plotRGB(p21, r=4, g=3, b=2, stretch="lin")
 # p84, p85, p87, p88, p89, p90, p91, p92, p93, p95, p96, p97, p99, p00, p01, p02, p03, p06, p07, p10, p13, p14, p15, p16, p17, p18, p19, p20, p21
 # Elenco plot
 # p84p, p85p, p87p, p88p, p89p, p90p, p91p, p92p, p93p, p95p, p96p, p97p, p99p, p00p, p01p, p02p, p03p, p06p, p07p, p10p, p13p, p14p, p15p, p16p, p17p, p18p, p19p, p20p, p21p
+
+### 2.3 Generazione dei plot RGB
+
+p84p<-plotRGB(p84, r=4, g=3, b=2, stretch="lin")
+p85p<-plotRGB(p85, r=4, g=3, b=2, stretch="lin")
+p87p<-plotRGB(p87, r=4, g=3, b=2, stretch="lin")
+p88p<-plotRGB(p88, r=4, g=3, b=2, stretch="lin")
+p89p<-plotRGB(p89, r=4, g=3, b=2, stretch="lin")
+p90p<-plotRGB(p90, r=4, g=3, b=2, stretch="lin")
+
 
 grid.arrange(p84p, p85p, p87p, p88p, p89p, p90p, p91p, p92p, p93p, p95p, p96p, p97p, p99p, p00p, p01p, p02p, p03p, p06p, p07p, p10p, p13p, p14p, p15p, p16p, p17p, p18p, p19p, p20p, p21p, nrow=6, ncol=6)
 
