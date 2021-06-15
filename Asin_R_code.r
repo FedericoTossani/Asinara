@@ -320,8 +320,222 @@ asimport<-lapply(asilist, brick)
 asinara<-stack(asimport)
 
 
+nir84<-p84$p193r32_1984_SR_B4
+nir85<-p85$p193r32_1985_SR_B4
+#nir86<-p86$p193r32_1986_SR_B4
+nir87<-p87$p193r32_1987_SR_B4
+nir88<-p88$p193r32_1988_SR_B4
+nir89<-p89$p193r32_1989_SR_B4
+nir90<-p90$p193r32_1990_SR_B4
+nir91<-p91$p193r32_1991_SR_B4
+nir92<-p92$p193r32_1992_SR_B4
+#nir93<-p93$p193r32_1993_SR_B4
+#nir94<-p94$p193r32_1994_SR_B4
+nir95<-p95$p193r32_1995_SR_B4
+nir96<-p96$p193r32_1996_SR_B4
+nir97<-p97$p193r32_1997_SR_B4
+#nir98<-p98$p193r32_1998_SR_B4
+nir99<-p99$p193r32_1999_SR_B4
+nir00<-p00$p193r32_2000_SR_B4
+nir01<-p01$p193r32_2001_SR_B4
+nir02<-p02$p193r32_2002b_SR_B4
+#nir03<-p03$p193r32_2003_SR_B4
+#nir04<-p04$p193r32_2004_SR_B4
+#nir05<-p05$p193r32_2005_SR_B4
+nir06<-p06$p193r32_2006_SR_B4
+nir07<-p07$p193r32_2007_SR_B4
+#nir08<-p08$p193r32_2008_SR_B4
+#nir09<-p09$p193r32_2009_SR_B4
+nir10<-p10$p193r32_2010_SR_B4
+#nir11<-p11$p193r32_2011_SR_B4
+#nir12<-p12$p193r32_2012_SR_B4
+nir13<-p13$p193r32_2013_SR_B4
+nir14<-p14$p193r32_2014_SR_B4
+nir15<-p15$p193r32_2015_SR_B4
+nir16<-p16$p193r32_2016_SR_B4
+nir17<-p17$p193r32_2017_SR_B4
+nir18<-p18$p193r32_2018_SR_B4
+nir19<-p19$p193r32_2019_SR_B4
+nir20<-p20$p193r32_2020_SR_B4
+nir21<-p21$p193r32_2021_SR_B4
 
 
+red84	<-	p84$p193r32_1984_SR_B3
+red85	<-	p85$p193r32_1985_SR_B3
+#red86	<-	p86$p193r32_1986_SR_B3
+red87	<-	p87$p193r32_1987_SR_B3
+red88	<-	p88$p193r32_1988_SR_B3
+red89	<-	p89$p193r32_1989_SR_B3
+red90	<-	p90$p193r32_1990_SR_B3
+red91	<-	p91$p193r32_1991_SR_B3
+red92	<-	p92$p193r32_1992_SR_B3
+#red93	<-	p93$p193r32_1993_SR_B3
+#red94	<-	p94$p193r32_1994_SR_B3
+red95	<-	p95$p193r32_1995_SR_B3
+red96	<-	p96$p193r32_1996_SR_B3
+red97	<-	p97$p193r32_1997_SR_B3
+#red98	<-	p98$p193r32_1998_SR_B3
+red99	<-	p99$p193r32_1999_SR_B3
+red00	<-	p00$p193r32_2000_SR_B3
+red01	<-	p01$p193r32_2001_SR_B3
+red02	<-	p02$p193r32_2002b_SR_B3
+#red03	<-	p03$p193r32_2003_SR_B3
+#red04	<-	p04$p193r32_2004_SR_B3
+#red05	<-	p05$p193r32_2005_SR_B3
+red06	<-	p06$p193r32_2006_SR_B3
+red07	<-	p07$p193r32_2007_SR_B3
+#red08	<-	p08$p193r32_2008_SR_B3
+#red09	<-	p09$p193r32_2009_SR_B3
+red10	<-	p10$p193r32_2010_SR_B3
+#red11	<-	p11$p193r32_2011_SR_B3
+#red12	<-	p12$p193r32_2012_SR_B3
+red13	<-	p13$p193r32_2013_SR_B3
+red14	<-	p14$p193r32_2014_SR_B3
+red15	<-	p15$p193r32_2015_SR_B3
+red16	<-	p16$p193r32_2016_SR_B3
+red17	<-	p17$p193r32_2017_SR_B3
+red18	<-	p18$p193r32_2018_SR_B3
+red19	<-	p19$p193r32_2019_SR_B3
+red20	<-	p20$p193r32_2020_SR_B3
+red21	<-	p21$p193r32_2021_SR_B3
+
+
+ndvi84	<-	(nir84-red84)/(nir84+ red84)
+ndvi85	<-	(nir85-red85)/(nir85+	red85)
+#ndvi86	<-	(nir86-red86)/(nir86+	red86)
+ndvi87	<-	(nir87-red87)/(nir87+ red87)
+ndvi88	<-	(nir88-red88)/(nir88+	red88)
+ndvi89	<-	(nir89-red89)/(nir89+	red89)
+ndvi90	<-	(nir90-red90)/(nir90+	red90)
+ndvi91	<-	(nir91-red91)/(nir91+	red91)
+ndvi92	<-	(nir92-red92)/(nir92+ red92)
+#ndvi93	<-	(nir93-red93)/(nir93+	red93)
+#ndvi94	<-	(nir94-red94)/(nir94+	red94)
+ndvi95	<-	(nir95-red95)/(nir95+	red95)
+ndvi96	<-	(nir96-red96)/(nir96+	red96)
+ndvi97	<-	(nir97-red97)/(nir97+	red97)
+#ndvi98	<-	(nir98-red98)/(nir98+	red98)
+ndvi99	<-	(nir99-red99)/(nir99+	red99)
+ndvi00	<-	(nir00-red00)/(nir00+	red00)
+ndvi01	<-	(nir01-red01)/(nir01+	red01)
+ndvi02	<-	(nir02-red02)/(nir02+	red02)
+#ndvi03	<-	(nir03-red03)/(nir03+	red03)
+#ndvi04	<-	(nir04-red04)/(nir04+	red04)
+#ndvi05	<-	(nir05-red05)/(nir05+	red05)
+ndvi06	<-	(nir06-red06)/(nir06+	red06)
+ndvi07	<-	(nir07-red07)/(nir07+	red07)
+#ndvi08	<-	(nir08-red08)/(nir08+	red08)
+#ndvi09	<-	(nir09-red09)/(nir09+	red09)
+ndvi10	<-	(nir10-red10)/(nir10+	red10)
+#ndvi11	<-	(nir11-red11)/(nir11+	red11)
+#ndvi12	<-	(nir12-red12)/(nir12+	red12)
+ndvi13	<-	(nir13-red13)/(nir13+	red13)
+ndvi14	<-	(nir14-red14)/(nir14+	red14)
+ndvi15	<-	(nir15-red15)/(nir15+	red15)
+ndvi16	<-	(nir16-red16)/(nir16+	red16)
+ndvi17	<-	(nir17-red17)/(nir17+ red17)
+ndvi18	<-	(nir18-red18)/(nir18+	red18)
+ndvi19	<-	(nir19-red19)/(nir19+	red19)
+ndvi20	<-	(nir20-red20)/(nir20+	red20)
+ndvi21	<-	(nir21-red21)/(nir21+	red21)
+
+par(mfrow=c(3,3))
+plot(ndvi84)
+plot(ndvi88)
+plot(ndvi91)
+plot(ndvi96)
+plot(ndvi00)
+plot(ndvi07)
+plot(ndvi14)
+plot(ndvi16)
+plot(ndvi19)
+
+ndvi84_sd3 <- focal(ndvi84,w=matrix(1/9, nrow=3, ncol=3), fun=sd)
+ndvi88_sd3 <- focal(ndvi88,w=matrix(1/9, nrow=3, ncol=3), fun=sd)
+ndvi91_sd3 <- focal(ndvi91,w=matrix(1/9, nrow=3, ncol=3), fun=sd)
+ndvi96_sd3 <- focal(ndvi96,w=matrix(1/9, nrow=3, ncol=3), fun=sd)
+ndvi00_sd3 <- focal(ndvi00,w=matrix(1/9, nrow=3, ncol=3), fun=sd)
+ndvi07_sd3 <- focal(ndvi07,w=matrix(1/9, nrow=3, ncol=3), fun=sd)
+ndvi14_sd3 <- focal(ndvi14,w=matrix(1/9, nrow=3, ncol=3), fun=sd)
+ndvi16_sd3 <- focal(ndvi16,w=matrix(1/9, nrow=3, ncol=3), fun=sd)
+ndvi19_sd3 <- focal(ndvi19,w=matrix(1/9, nrow=3, ncol=3), fun=sd)
+
+
+par(mfrow=c(3,3))
+plot(ndvi84_sd3)
+plot(ndvi88_sd3)
+plot(ndvi91_sd3)
+plot(ndvi96_sd3)
+plot(ndvi00_sd3)
+plot(ndvi07_sd3)
+plot(ndvi14_sd3)
+plot(ndvi16_sd3)
+plot(ndvi19_sd3)
+
+
+p84pca <- rasterPCA(p84)
+p88pca <- rasterPCA(p88)
+p91pca <- rasterPCA(p91)
+p96pca <- rasterPCA(p96)
+p00pca <- rasterPCA(p00)
+p07pca <- rasterPCA(p07)
+p14pca <- rasterPCA(p14)
+p19pca <- rasterPCA(p19)
+
+p84pc1<-p84pca$map$PC1
+p88pc1<-p88pca$map$PC1
+p91pc1<-p91pca$map$PC1
+p96pc1<-p96pca$map$PC1
+p00pc1<-p00pca$map$PC1
+p07pc1<-p07pca$map$PC1
+p14pc1<-p14pca$map$PC1
+p19pc1<-p19pca$map$PC1
+
+
+par(mfrow=c(2,2))
+plot(p84pca$map$PC1)
+plot(p91pca$map$PC1)
+plot(p07pca$map$PC1)
+plot(p14pca$map$PC1)
+
+
+par(mfrow=c(3,3))
+plot(p84pca$map$PC1)
+plot(p88pca$map$PC1)
+plot(p91pca$map$PC1)
+plot(p96pca$map$PC1)
+plot(p00pca$map$PC1)
+plot(p07pca$map$PC1)
+plot(p14pca$map$PC1)
+plot(p19pca$map$PC1)
+
+
+p84pc1<-p84pca$map$PC1
+p15pc1<-p15pca$map$PC1
+
+p84pca_sd3 <- focal(p84pc1,w=matrix(1/9, nrow=3, ncol=3), fun=sd)
+p15pca_sd3 <- focal(p15pc1,w=matrix(1/9, nrow=3, ncol=3), fun=sd)
+
+p1<-ggplot()+
+geom_raster(p84pca_sd3, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("Standard deviation of PC1 by viridis color scale")
+
+
+clp<-colorRampPalette(c("purple","dark blue","blue","green","yellow"))
+par(mfrow=c(1,2))
+plot(p84pc1, col=clp)
+plot(p15pc1, col=clp)
+
+
+
+
+p2<-ggplot()+
+geom_raster(p15pca_sd3, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("Standard deviation of PC1 by viridis color scale")
+
+grid.arrange(p1, p2, nrow=1)
 
 
 nir<-sentinel$sentinel.1
