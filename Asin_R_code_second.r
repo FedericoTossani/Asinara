@@ -35,7 +35,6 @@ setwd("/Users/federicotossani/Asinara/L_image")
 source("/Users/federicotossani/Asinara/spectralrao.r")
 
 #######################################################
-
 ## 2. Images
 
 ### estensione ###
@@ -125,9 +124,85 @@ list20<-list.files(pattern="2020")
 p20t<-lapply(list20, raster)
 p20<- map(p20t, crop, extnew)
 
-#######################################################
+## Import with brick function
+p84<-brick("Asi_p193r32_1984.grd")
+p85<-brick("Asi_p193r32_1985.grd")
+p87<-brick("Asi_p193r32_1987.grd")
+p88<-brick("Asi_p193r32_1988.grd")
+p91<-brick("Asi_p193r32_1991.grd")
+p92<-brick("Asi_p193r32_1992.grd")
+p95<-brick("Asi_p193r32_1995.grd")
+p96<-brick("Asi_p193r32_1996.grd")
+p97<-brick("Asi_p193r32_1997.grd")
+p99<-brick("Asi_p193r32_1999.grd")
+p00<-brick("Asi_p193r32_2000.grd")
+p02<-brick("Asi_p193r32_2002.grd")
+p14<-brick("Asi_p193r32_2014.grd")
+p15<-brick("Asi_p193r32_2015.grd")
+p17<-brick("Asi_p193r32_2017.grd")
+p18<-brick("Asi_p193r32_2018.grd")
+p20<-brick("Asi_p193r32_2020.grd")
 
+#######################################################
 # 3. Where the magic begins
+## 3.1 NDVI
+# first of all, I will calculate the NDVI for each image so I can use 
+# this single band product for the calculation of Rao's Q index.
+
+nir84<-p84$p193r32_1984_SR_B4
+nir85<-p85$p193r32_1985_SR_B4
+nir87<-p87$p193r32_1987_SR_B4
+nir88<-p88$p193r32_1988_SR_B4
+nir91<-p91$p193r32_1991_SR_B4
+nir92<-p92$p193r32_1992_SR_B4
+nir95<-p95$p193r32_1995_SR_B4
+nir96<-p96$p193r32_1996_SR_B4
+nir97<-p97$p193r32_1997_SR_B4
+nir99<-p99$p193r32_1999_SR_B4
+nir00<-p00$p193r32_2000_SR_B4
+nir02<-p02$p193r32_2002b_SR_B4
+nir14<-p14$p193r32_2014_SR_B4
+nir15<-p15$p193r32_2015_SR_B4
+nir17<-p17$p193r32_2017_SR_B4
+nir18<-p18$p193r32_2018_SR_B4
+nir20<-p20$p193r32_2020_SR_B4
+
+red84	<-	p84$p193r32_1984_SR_B3
+red85	<-	p85$p193r32_1985_SR_B3
+red87	<-	p87$p193r32_1987_SR_B3
+red88	<-	p88$p193r32_1988_SR_B3
+red91	<-	p91$p193r32_1991_SR_B3
+red92	<-	p92$p193r32_1992_SR_B3
+red95	<-	p95$p193r32_1995_SR_B3
+red96	<-	p96$p193r32_1996_SR_B3
+red97	<-	p97$p193r32_1997_SR_B3
+red99	<-	p99$p193r32_1999_SR_B3
+red00	<-	p00$p193r32_2000_SR_B3
+red02	<-	p02$p193r32_2002b_SR_B3
+red14	<-	p14$p193r32_2014_SR_B3
+red15	<-	p15$p193r32_2015_SR_B3
+red17	<-	p17$p193r32_2017_SR_B3
+red18	<-	p18$p193r32_2018_SR_B3
+red20	<-	p20$p193r32_2020_SR_B3
+
+ndvi84	<-	(nir84-red84)/(nir84+ red84)
+ndvi85	<-	(nir85-red85)/(nir85+	red85)
+ndvi87	<-	(nir87-red87)/(nir87+ red87)
+ndvi88	<-	(nir88-red88)/(nir88+	red88)
+ndvi91	<-	(nir91-red91)/(nir91+	red91)
+ndvi92	<-	(nir92-red92)/(nir92+ red92)
+ndvi95	<-	(nir95-red95)/(nir95+	red95)
+ndvi96	<-	(nir96-red96)/(nir96+	red96)
+ndvi97	<-	(nir97-red97)/(nir97+	red97)
+ndvi99	<-	(nir99-red99)/(nir99+	red99)
+ndvi00	<-	(nir00-red00)/(nir00+	red00)
+ndvi02	<-	(nir02-red02)/(nir02+	red02)
+ndvi14	<-	(nir14-red14)/(nir14+	red14)
+ndvi15	<-	(nir15-red15)/(nir15+	red15)
+ndvi17	<-	(nir17-red17)/(nir17+ red17)
+ndvi18	<-	(nir18-red18)/(nir18+	red18)
+ndvi20	<-	(nir20-red20)/(nir20+	red20)
+
 
 # Rao's Q index
 rao84<-spectralrao(p84, distance_m="euclidean", window=3, shannon=FALSE)
@@ -140,20 +215,21 @@ rao84<-spectralrao(p84, distance_m="euclidean", window=3, shannon=FALSE)
 
 # 4. Results
 
+## DA FARE
 
-asilist<-list.files(pattern="p193r32")
-asimp<-lapply(asilist, raster)
-asinara<-crop(asimp, extent(431858.1, 445713, 4532960, 4552802))
-asinara<-lapply(asimp, crop(asimp, extent(431858.1, 445713, 4532960, 4552802)))
-
-
-
-asirao<-spectralrao(import84, distance_m="euclidean", window=3, shannon=FALSE)
+#asilist<-list.files(pattern="p193r32")
+#asimp<-lapply(asilist, raster)
+#asinara<-crop(asimp, extent(431858.1, 445713, 4532960, 4552802))
+#asinara<-lapply(asimp, crop(asimp, extent(431858.1, 445713, 4532960, 4552802)))
 
 
 
-asipca<-lapply(asimp, rasterPCA)
+#asirao<-spectralrao(import84, distance_m="euclidean", window=3, shannon=FALSE)
 
-asipc1<-asipca$map$PC1
 
-plot(asipc1)
+
+#asipca<-lapply(asimp, rasterPCA)
+
+#asipc1<-asipca$map$PC1
+
+#plot(asipc1)
