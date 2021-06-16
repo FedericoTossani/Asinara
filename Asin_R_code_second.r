@@ -203,6 +203,29 @@ ndvi17	<-	(nir17-red17)/(nir17+ red17)
 ndvi18	<-	(nir18-red18)/(nir18+	red18)
 ndvi20	<-	(nir20-red20)/(nir20+	red20)
 
+cl<-colorRampPalette(c("black", "purple", "dark green", "yellow", "white")) (200)
+par(mfrow=c(3, 6))
+plot(ndvi84, col=cl)
+plot(ndvi85, col=cl)
+plot(ndvi87, col=cl)
+plot(ndvi88, col=cl)
+plot(ndvi91, col=cl)
+plot(ndvi92, col=cl)
+plot(ndvi95, col=cl)
+plot(ndvi96, col=cl)
+plot(ndvi97, col=cl)
+plot(ndvi99, col=cl)
+plot(ndvi00, col=cl)
+plot(ndvi02, col=cl)
+plot(ndvi14, col=cl)
+plot(ndvi15, col=cl)
+plot(ndvi17, col=cl)
+plot(ndvi18, col=cl)
+plot(ndvi20, col=cl)
+
+
+
+
 
 # Rao's Q index
 rao84<-spectralrao(p84, distance_m="euclidean", window=3, shannon=FALSE)
