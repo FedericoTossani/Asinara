@@ -565,31 +565,31 @@ p84p<-plotRGB(p84, r=4, g=3, b=2, stretch="lin")
 p85p<-plotRGB(p85, r=4, g=3, b=2, stretch="lin")
 p87p<-plotRGB(p87, r=4, g=3, b=2, stretch="lin")
 p88p<-plotRGB(p88, r=4, g=3, b=2, stretch="lin")
-p89p<-plotRGB(p89, r=4, g=3, b=2, stretch="lin")
-p90p<-plotRGB(p90, r=4, g=3, b=2, stretch="lin")
+#p89p<-plotRGB(p89, r=4, g=3, b=2, stretch="lin") #brutta
+#p90p<-plotRGB(p90, r=4, g=3, b=2, stretch="lin") #brutta
 p91p<-plotRGB(p91, r=4, g=3, b=2, stretch="lin")
 p92p<-plotRGB(p92, r=4, g=3, b=2, stretch="lin")
-p93p<-plotRGB(p93, r=4, g=3, b=2, stretch="lin")
+#p93p<-plotRGB(p93, r=4, g=3, b=2, stretch="lin") ##############
 p95p<-plotRGB(p95, r=4, g=3, b=2, stretch="lin")
 p96p<-plotRGB(p96, r=4, g=3, b=2, stretch="lin")
 p97p<-plotRGB(p97, r=4, g=3, b=2, stretch="lin")
-p99p<-plotRGB(p99, r=4, g=3, b=2, stretch="lin")
-p00p<-plotRGB(p00, r=4, g=3, b=2, stretch="lin")
-p01p<-plotRGB(p01, r=4, g=3, b=2, stretch="lin")
-p02p<-plotRGB(p02, r=4, g=3, b=2, stretch="lin")
-p03p<-plotRGB(p03, r=4, g=3, b=2, stretch="lin")
-p06p<-plotRGB(p06, r=4, g=3, b=2, stretch="lin")
-p07p<-plotRGB(p07, r=4, g=3, b=2, stretch="lin")
-p10p<-plotRGB(p10, r=4, g=3, b=2, stretch="lin")
-p13p<-plotRGB(p13, r=4, g=3, b=2, stretch="lin")
-p14p<-plotRGB(p14, r=4, g=3, b=2, stretch="lin")
+p99p<-plotRGB(p99, r=4, g=3, b=2, stretch="lin") 
+p00p<-plotRGB(p00, r=4, g=3, b=2, stretch="lin") 
+#p01p<-plotRGB(p01, r=4, g=3, b=2, stretch="lin") #modifica extent
+p02p<-plotRGB(p02, r=4, g=3, b=2, stretch="lin") 
+#p03p<-plotRGB(p03, r=4, g=3, b=2, stretch="lin") ###############
+#p06p<-plotRGB(p06, r=4, g=3, b=2, stretch="lin") #brutta
+#p07p<-plotRGB(p07, r=4, g=3, b=2, stretch="lin") #modifica extent
+#p10p<-plotRGB(p10, r=4, g=3, b=2, stretch="lin") #modifica extent
+#p13p<-plotRGB(p13, r=4, g=3, b=2, stretch="lin") #brutta
+p14p<-plotRGB(p14, r=4, g=3, b=2, stretch="lin") 
 p15p<-plotRGB(p15, r=4, g=3, b=2, stretch="lin")
-p16p<-plotRGB(p16, r=4, g=3, b=2, stretch="lin")
-p17p<-plotRGB(p17, r=4, g=3, b=2, stretch="lin")
+#p16p<-plotRGB(p16, r=4, g=3, b=2, stretch="lin") #brutta
+p17p<-plotRGB(p17, r=4, g=3, b=2, stretch="lin") 
 p18p<-plotRGB(p18, r=4, g=3, b=2, stretch="lin")
-p19p<-plotRGB(p19, r=4, g=3, b=2, stretch="lin")
+#p19p<-plotRGB(p19, r=4, g=3, b=2, stretch="lin") #brutta
 p20p<-plotRGB(p20, r=4, g=3, b=2, stretch="lin")
-p21p<-plotRGB(p21, r=4, g=3, b=2, stretch="lin")
+#p21p<-plotRGB(p21, r=4, g=3, b=2, stretch="lin") #brutta
 
 grid.arrange(p84p, p85p, p87p, p88p, p89p, p90p, p91p, p92p, p93p, p95p, p96p, p97p, p99p, p00p, p01p, p02p, p03p, p06p, p07p, p10p, p13p, p14p, p15p, p16p, p17p, p18p, p19p, p20p, p21p, nrow=6, ncol=6)
 
