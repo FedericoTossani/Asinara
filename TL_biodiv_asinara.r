@@ -1,4 +1,4 @@
-## Time-lapsing biodiversity: an open source method for measuring diversity changes by remote sensing
+## Time-lapse of Asinara National Park's biodiversity
 ## Authors: Matteo Marcantonio, Daniele Da Re, Duccio Rocchini
 
 ## Set working directory and load libraries 
