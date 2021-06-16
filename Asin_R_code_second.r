@@ -228,7 +228,38 @@ plot(ndvi20, col=cl)
 
 
 # Rao's Q index
-rao84<-spectralrao(p84, distance_m="euclidean", window=3, shannon=FALSE)
+rao84<-spectralrao(p84, mode="multidimension", distance_m="euclidean", window=3, shannon=F)
+rao91<-spectralrao(p91, mode="multidimension", distance_m="euclidean", window=3, shannon=F)
+rao02<-spectralrao(p02, mode="multidimension", distance_m="euclidean", window=3, shannon=F)
+rao20<-spectralrao(p20, mode="multidimension", distance_m="euclidean", window=3, shannon=F)
+
+p1<-ggplot()+
+geom_raster(rao84, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("Rao's Q value in Asinara 1984")
+
+p2<-ggplot()+
+geom_raster(rao91, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("Rao's Q value in Asinara 1991")
+
+p3<-ggplot()+
+geom_raster(rao02, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("Rao's Q value in Asinara 2002")
+
+p4<-ggplot()+
+geom_raster(rao20, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("Rao's Q value in Asinara 2020")
+
+grid.arrange(p1, p2, p3, p4, nrow=2, ncol=2)
+
+
+
+
+ndvi84m<-raster::as.matrix(ndvi84)
+rao84<-spectralrao(ndvi84m, mode="classic", distance_m="euclidean", window=3, shannon=FALSE)
 
 #######################################################
 # Have a seat and enjoy some good music (a couple of days will be enough)
