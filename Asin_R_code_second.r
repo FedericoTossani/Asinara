@@ -223,15 +223,55 @@ plot(ndvi17, col=cl)
 plot(ndvi18, col=cl)
 plot(ndvi20, col=cl)
 
-
+par(mfrow=c(2,2))
+levelplot(rao84)
+levelplot(rao91)
+levelplot(rao02)
+levelplot(rao20)
 
 
 
 # Rao's Q index
 rao84<-spectralrao(p84, mode="multidimension", distance_m="euclidean", window=3, shannon=F)
+writeRaster(rao84, filename="Rao_84.grd", format="raster")
+rao85<-spectralrao(p85, mode="multidimension", distance_m="euclidean", window=3, shannon=F)
+writeRaster(rao85, filename="Rao_85.grd", format="raster")
+rao87<-spectralrao(p87, mode="multidimension", distance_m="euclidean", window=3, shannon=F)
+writeRaster(rao87, filename="Rao_87.grd", format="raster")
+rao88<-spectralrao(p88, mode="multidimension", distance_m="euclidean", window=3, shannon=F)
+writeRaster(rao88, filename="Rao_88.grd", format="raster")
 rao91<-spectralrao(p91, mode="multidimension", distance_m="euclidean", window=3, shannon=F)
+writeRaster(rao91, filename="Rao_91.grd", format="raster")
+rao92<-spectralrao(p92, mode="multidimension", distance_m="euclidean", window=3, shannon=F)
+writeRaster(rao92, filename="Rao_92.grd", format="raster")
+rao95<-spectralrao(p95, mode="multidimension", distance_m="euclidean", window=3, shannon=F)
+writeRaster(rao95, filename="Rao_95.grd", format="raster")
+rao96<-spectralrao(p96, mode="multidimension", distance_m="euclidean", window=3, shannon=F)
+writeRaster(rao96, filename="Rao_96.grd", format="raster")
+rao97<-spectralrao(p97, mode="multidimension", distance_m="euclidean", window=3, shannon=F)
+writeRaster(rao97, filename="Rao_97.grd", format="raster")
+rao99<-spectralrao(p99, mode="multidimension", distance_m="euclidean", window=3, shannon=F)
+writeRaster(rao99, filename="Rao_99.grd", format="raster")
+rao00<-spectralrao(p00, mode="multidimension", distance_m="euclidean", window=3, shannon=F)
+writeRaster(rao00, filename="Rao_00.grd", format="raster")
 rao02<-spectralrao(p02, mode="multidimension", distance_m="euclidean", window=3, shannon=F)
+writeRaster(rao02, filename="Rao_02.grd", format="raster")
+rao14<-spectralrao(p14, mode="multidimension", distance_m="euclidean", window=3, shannon=F)
+writeRaster(rao14, filename="Rao_14.grd", format="raster")
+rao15<-spectralrao(p15, mode="multidimension", distance_m="euclidean", window=3, shannon=F)
+writeRaster(rao15, filename="Rao_15.grd", format="raster")
+rao17<-spectralrao(p17, mode="multidimension", distance_m="euclidean", window=3, shannon=F)
+writeRaster(rao17, filename="Rao_17.grd", format="raster")
+rao18<-spectralrao(p18, mode="multidimension", distance_m="euclidean", window=3, shannon=F)
+writeRaster(rao18, filename="Rao_18.grd", format="raster")
 rao20<-spectralrao(p20, mode="multidimension", distance_m="euclidean", window=3, shannon=F)
+writeRaster(rao20, filename="Rao_20.grd", format="raster")
+
+writeRaster(rao84, filename="Rao_84.grd", format="raster")
+writeRaster(rao91, filename="Rao_91.grd", format="raster")
+writeRaster(rao02, filename="Rao_02.grd", format="raster")
+writeRaster(rao20, filename="Rao_20.grd", format="raster")
+
 
 p1<-ggplot()+
 geom_raster(rao84, mapping=aes(x = x, y = y, fill = layer))+
@@ -255,6 +295,15 @@ ggtitle("Rao's Q value in Asinara 2020")
 
 grid.arrange(p1, p2, p3, p4, nrow=2, ncol=2)
 
+grid.arrange(p1, p4, nrow=1, ncol=2)
+p1<-ggplot()+
+geom_raster(rao84, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("Rao's Q value in Asinara 1984")
+p4<-ggplot()+
+geom_raster(rao20, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("Rao's Q value in Asinara 2020")
 
 
 
