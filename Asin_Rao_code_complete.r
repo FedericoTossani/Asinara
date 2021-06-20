@@ -1,4 +1,3 @@
-
 p1<-plot(rao84)
 p2<-plot(rao85)
 p3<-plot(rao87)
