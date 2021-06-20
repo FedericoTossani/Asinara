@@ -267,10 +267,7 @@ writeRaster(rao18, filename="Rao_18.grd", format="raster")
 rao20<-spectralrao(p20, mode="multidimension", distance_m="euclidean", window=3, shannon=F)
 writeRaster(rao20, filename="Rao_20.grd", format="raster")
 
-writeRaster(rao84, filename="Rao_84.grd", format="raster")
-writeRaster(rao91, filename="Rao_91.grd", format="raster")
-writeRaster(rao02, filename="Rao_02.grd", format="raster")
-writeRaster(rao20, filename="Rao_20.grd", format="raster")
+
 
 
 p1<-ggplot()+
@@ -296,10 +293,12 @@ ggtitle("Rao's Q value in Asinara 2020")
 grid.arrange(p1, p2, p3, p4, nrow=2, ncol=2)
 
 grid.arrange(p1, p4, nrow=1, ncol=2)
+
 p1<-ggplot()+
 geom_raster(rao84, mapping=aes(x = x, y = y, fill = layer))+
 scale_fill_viridis()+
 ggtitle("Rao's Q value in Asinara 1984")
+
 p4<-ggplot()+
 geom_raster(rao20, mapping=aes(x = x, y = y, fill = layer))+
 scale_fill_viridis()+
