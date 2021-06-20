@@ -276,8 +276,6 @@ asilist<-list.files(pattern="Asi_")
 asimport<-lapply(asilist, brick)
 asinara<-stack(asimport)
 
-# Importare tutte le immagine con la funzione lapply non funziona, o meglio, diventa un file troppo pesante che il computer non riesce ad aprire.
-
 
 # Elenco immagini 
 # p84, p85, p87, p88, p89, p90, p91, p92, p93, p95, p96, p97, p99, p00, p01, p02, p03, p06, p07, p10, p13, p14, p15, p16, p17, p18, p19, p20, p21
