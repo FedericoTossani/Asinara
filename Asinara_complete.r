@@ -372,10 +372,12 @@ p20pc1<-p20pca$map$PC1
 
 ### Rao's Q index
 
-p1<-ggplot()+
+pdf("Rao's_Q_1.pdf")
+ggplot()+
 geom_raster(rao84a, mapping=aes(x = x, y = y, fill = layer))+
 scale_fill_viridis()+
 ggtitle("Rao's Q index, Asinara 1984")
+dev.off()
 
 p2<-ggplot()+
 geom_raster(rao85a, mapping=aes(x = x, y = y, fill = layer))+
