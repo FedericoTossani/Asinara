@@ -372,102 +372,194 @@ p20pc1<-p20pca$map$PC1
 
 ### Rao's Q index
 
-pdf("Rao's_Q_1.pdf")
+pdf("Rao's_Q.pdf")
 ggplot()+
 geom_raster(rao84a, mapping=aes(x = x, y = y, fill = layer))+
 scale_fill_viridis()+
 ggtitle("Rao's Q index, Asinara 1984")
-dev.off()
 
-p2<-ggplot()+
+ggplot()+
 geom_raster(rao85a, mapping=aes(x = x, y = y, fill = layer))+
 scale_fill_viridis()+
 ggtitle("Rao's Q index, Asinara 1985")
 
-p3<-ggplot()+
+ggplot()+
 geom_raster(rao87a, mapping=aes(x = x, y = y, fill = layer))+
 scale_fill_viridis()+
 ggtitle("Rao's Q index, Asinara 1987")
 
-p4<-ggplot()+
+ggplot()+
 geom_raster(rao88a, mapping=aes(x = x, y = y, fill = layer))+
 scale_fill_viridis()+
 ggtitle("Rao's Q index, Asinara 1988")
 
-p5<-ggplot()+
+ggplot()+
 geom_raster(rao91a, mapping=aes(x = x, y = y, fill = layer))+
 scale_fill_viridis()+
 ggtitle("Rao's Q index, Asinara 1991")
 
-p6<-ggplot()+
+ggplot()+
 geom_raster(rao92a, mapping=aes(x = x, y = y, fill = layer))+
 scale_fill_viridis()+
 ggtitle("Rao's Q index, Asinara 1992")
 
-p7<-ggplot()+
+ggplot()+
 geom_raster(rao95a, mapping=aes(x = x, y = y, fill = layer))+
 scale_fill_viridis()+
 ggtitle("Rao's Q index, Asinara 1995")
 
-p8<-ggplot()+
+ggplot()+
 geom_raster(rao96a, mapping=aes(x = x, y = y, fill = layer))+
 scale_fill_viridis()+
 ggtitle("Rao's Q index, Asinara 1996")
 
-p9<-ggplot()+
+ggplot()+
 geom_raster(rao97a, mapping=aes(x = x, y = y, fill = layer))+
 scale_fill_viridis()+
 ggtitle("Rao's Q index, Asinara 1997")
 
-p10<-ggplot()+
+ggplot()+
 geom_raster(rao99a, mapping=aes(x = x, y = y, fill = layer))+
 scale_fill_viridis()+
 ggtitle("Rao's Q index, Asinara 1999")
 
-p11<-ggplot()+
+ggplot()+
 geom_raster(rao00a, mapping=aes(x = x, y = y, fill = layer))+
 scale_fill_viridis()+
 ggtitle("Rao's Q index, Asinara 2000")
 
-p12<-ggplot()+
+ggplot()+
 geom_raster(rao02a, mapping=aes(x = x, y = y, fill = layer))+
 scale_fill_viridis()+
 ggtitle("Rao's Q index, Asinara 2002")
 
 
-p13<-ggplot()+
+ggplot()+
 geom_raster(rao14a, mapping=aes(x = x, y = y, fill = layer))+
 scale_fill_viridis()+
 ggtitle("Rao's Q index, Asinara 2014")
 
 
-p14<-ggplot()+
+ggplot()+
 geom_raster(rao15a, mapping=aes(x = x, y = y, fill = layer))+
 scale_fill_viridis()+
 ggtitle("Rao's Q index, Asinara 2015")
 
 
-p15<-ggplot()+
+ggplot()+
 geom_raster(rao17a, mapping=aes(x = x, y = y, fill = layer))+
 scale_fill_viridis()+
 ggtitle("Rao's Q index, Asinara 2017")
 
-
-p16<-ggplot()+
+ggplot()+
 geom_raster(rao18a, mapping=aes(x = x, y = y, fill = layer))+
 scale_fill_viridis()+
 ggtitle("Rao's Q index, Asinara 2018")
 
-p17<-ggplot()+
+ggplot()+
 geom_raster(rao20a, mapping=aes(x = x, y = y, fill = layer))+
 scale_fill_viridis()+
 ggtitle("Rao's Q index, Asinara 2020")
+dev.off()
 
 pdf("Rao's Q.pdf", title="Rao's Q index 1984-2020", paper="a4r")
 grid.arrange(p1, p2, p3, p4, p5, p6, p7, p8, p9, nrow=2, ncol=5)
 grid.arrange(p10, p11, p12, p13, p14, p15, p16, p17, nrow=2, ncol=4)
 dev.off()
 
+
+### NDVI
+
+pdf("NDVI.pdf")
+ggplot()+
+geom_raster(ndvi84, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("NDVI Asinara 1984")
+
+ggplot()+
+geom_raster(ndvi85, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("NDVI Asinara 1985")
+
+ggplot()+
+geom_raster(ndvi87, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("NDVI Asinara 1987")
+
+ggplot()+
+geom_raster(ndvi88, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("NDVI Asinara 1988")
+
+ggplot()+
+geom_raster(ndvi91, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("NDVI Asinara 1991")
+
+ggplot()+
+geom_raster(ndvi92, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("NDVI Asinara 1992")
+
+ggplot()+
+geom_raster(ndvi95, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("NDVI Asinara 1995")
+
+ggplot()+
+geom_raster(ndvi96, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("NDVI Asinara 1996")
+
+ggplot()+
+geom_raster(ndvi97, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("NDVI Asinara 1997")
+
+ggplot()+
+geom_raster(ndvi99, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("NDVI Asinara 1999")
+
+ggplot()+
+geom_raster(ndvi00, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("NDVI Asinara 2000")
+
+ggplot()+
+geom_raster(ndvi02, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("NDVI Asinara 2002")
+
+ggplot()+
+geom_raster(ndvi14, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("NDVI Asinara 2014")
+
+ggplot()+
+geom_raster(ndvi15, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("NDVI Asinara 2015")
+
+ggplot()+
+geom_raster(ndvi17, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("NDVI Asinara 2017")
+
+ggplot()+
+geom_raster(ndvi18, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("NDVI Asinara 2018")
+
+ggplot()+
+geom_raster(ndvi20, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("NDVI Asinara 2020")
+dev.off()
+
+par(mfrow=c(1,2))
+plot(ndvi84)
+plot(ndvi20)
 #######################################################
 # 4. Risultati
 
