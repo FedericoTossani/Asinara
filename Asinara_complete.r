@@ -42,7 +42,8 @@ require(ggplot2)
 require(gridExtra)
 require(viridis)
 require(purrr)
-setwd("/Users/federicotossani/Asinara/L_image")
+#setwd("/Users/federicotossani/Asinara/L_image")
+setwd("/Users/federicotossani/Asinara/L_image_mar")
 source("/Users/federicotossani/Asinara/spectralrao.r")
 
 #######################################################
@@ -86,7 +87,7 @@ p85<- map(p85t, crop, extnew)
 list87<-list.files(pattern="1987")
 p87t<-lapply(list87, raster)
 p87<- map(p87t, crop, extnew)
-#writeRaster(p87, filename="Asi_p193r32_1987.grd", format="raster")
+writeRaster(p87, filename="Asi_p193r32_1987_mar.grd", format="raster")
 
 ## 1988 ##
 list88<-list.files(pattern="1988")
