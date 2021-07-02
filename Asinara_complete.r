@@ -87,7 +87,7 @@ p85<- map(p85t, crop, extnew)
 list87<-list.files(pattern="1987")
 p87t<-lapply(list87, raster)
 p87<- map(p87t, crop, extnew)
-writeRaster(p87, filename="Asi_p193r32_1987_mar.grd", format="raster")
+writeRaster(p87, filename="Asi_p193r32_1987.grd", format="raster")
 
 ## 1988 ##
 list88<-list.files(pattern="1988")
@@ -352,8 +352,8 @@ p18pca <- rasterPCA(p18)
 p20pca <- rasterPCA(p20)
 
 p84pc1<-p84pca$map$PC1
-p84pc1<-p84pca$map$PC1
-p84pc1<-p84pca$map$PC1
+p85pc1<-p85pca$map$PC1
+p87pc1<-p87pca$map$PC1
 p88pc1<-p88pca$map$PC1
 p91pc1<-p91pca$map$PC1
 p92pc1<-p92pca$map$PC1
