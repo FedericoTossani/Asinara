@@ -27,7 +27,7 @@
 #    3.2 NDVI
 #    3.3 PCA
 #    3.4 Rappresentazione grafica
-# 4. Risultati
+# 4. Analisi statistiche
 # 5. Conclusioni
 
 #######################################################
@@ -42,8 +42,8 @@ require(ggplot2)
 require(gridExtra)
 require(viridis)
 require(purrr)
-#setwd("/Users/federicotossani/Asinara/L_image")
-setwd("/Users/federicotossani/Asinara/L_image_mar")
+setwd("/Users/federicotossani/Asinara/L_image")
+#setwd("/Users/federicotossani/Asinara/L_image_mar")
 source("/Users/federicotossani/Asinara/spectralrao.r")
 
 #######################################################
@@ -77,10 +77,10 @@ p84t<-lapply(list84, raster)
 p84<- map(p84t, crop, extnew)
 #writeRaster(p84, filename="Asi_p193r32_1984.grd", format="raster")
 
-## 1985 ##
-list85<-list.files(pattern="1985")
-p85t<-lapply(list85, raster)
-p85<- map(p85t, crop, extnew)
+## 1985 ## Immagine rovinata per presenza di nuvole
+#list85<-list.files(pattern="1985")
+#p85t<-lapply(list85, raster)
+#p85<- map(p85t, crop, extnew)
 #writeRaster(p85, filename="Asi_p193r32_1985.grd", format="raster")
 
 ## 1987 ##
@@ -175,7 +175,6 @@ p20<- map(p20t, crop, extnew)
 
 ## Importazione con la funzione brick
 p84<-brick("Asi_p193r32_1984.grd")
-p85<-brick("Asi_p193r32_1985.grd")
 p87<-brick("Asi_p193r32_1987.grd")
 p88<-brick("Asi_p193r32_1988.grd")
 p91<-brick("Asi_p193r32_1991.grd")
@@ -203,8 +202,6 @@ p20<-brick("Asi_p193r32_2020.grd")
 ### 3.1 Rao's Q index ###
 rao84<-spectralrao(p84, mode="multidimension", distance_m="euclidean", window=3, shannon=F)
 writeRaster(rao84, filename="Rao_84.grd", format="raster")
-rao85<-spectralrao(p85, mode="multidimension", distance_m="euclidean", window=3, shannon=F)
-writeRaster(rao85, filename="Rao_85.grd", format="raster")
 rao87<-spectralrao(p87, mode="multidimension", distance_m="euclidean", window=3, shannon=F)
 writeRaster(rao87, filename="Rao_87.grd", format="raster")
 rao88<-spectralrao(p88, mode="multidimension", distance_m="euclidean", window=3, shannon=F)
@@ -238,7 +235,6 @@ writeRaster(rao20, filename="Rao_20.grd", format="raster")
 
 # Importazione dei raster "Rao" con brick
 rao84<-brick("Rao_84.grd")
-rao85<-brick("Rao_85.grd")
 rao87<-brick("Rao_87.grd")
 rao88<-brick("Rao_88.grd")
 rao91<-brick("Rao_91.grd")
@@ -258,7 +254,6 @@ rao20<-brick("Rao_20.grd")
 # Ho usato la funzione aggregate() per accorpare i pixel dell'immagine al fine di migliorarne la rappresentazione grafica.
 # Con le immagini originali infatti non si apprezzava il cambiamento dell'indice nel tempo.
 rao84a<-aggregate(rao84, fact=10)
-rao85a<-aggregate(rao85, fact=10)
 rao87a<-aggregate(rao87, fact=10)
 rao88a<-aggregate(rao88, fact=10)
 rao91a<-aggregate(rao91, fact=10)
@@ -276,9 +271,15 @@ rao18a<-aggregate(rao18, fact=10)
 rao20a<-aggregate(rao20, fact=10)
 
 
+cl <- colorRampPalette(c("dark blue", "light blue", "red", "yellow"))(100)
+diffrao<-rao87-rao20
+plot(diffrao, col=cl, main="Rao's Q index's difference between 2020 and 1987")
+
+
 ### 3.2 NDVI
+cl <- colorRampPalette(c("dark blue", "light blue", "red", "yellow"))(100)
+
 nir84<-p84$p193r32_1984_SR_B4
-nir85<-p85$p193r32_1985_SR_B4
 nir87<-p87$p193r32_1987_SR_B4
 nir88<-p88$p193r32_1988_SR_B4
 nir91<-p91$p193r32_1991_SR_B4
@@ -295,46 +296,47 @@ nir17<-p17$p193r32_2017_SR_B4
 nir18<-p18$p193r32_2018_SR_B4
 nir20<-p20$p193r32_2020_SR_B4
 
-red84	<-	p84$p193r32_1984_SR_B3
-red85	<-	p85$p193r32_1985_SR_B3
-red87	<-	p87$p193r32_1987_SR_B3
-red88	<-	p88$p193r32_1988_SR_B3
-red91	<-	p91$p193r32_1991_SR_B3
-red92	<-	p92$p193r32_1992_SR_B3
-red95	<-	p95$p193r32_1995_SR_B3
-red96	<-	p96$p193r32_1996_SR_B3
-red97	<-	p97$p193r32_1997_SR_B3
-red99	<-	p99$p193r32_1999_SR_B3
-red00	<-	p00$p193r32_2000_SR_B3
-red02	<-	p02$p193r32_2002b_SR_B3
-red14	<-	p14$p193r32_2014_SR_B3
-red15	<-	p15$p193r32_2015_SR_B3
-red17	<-	p17$p193r32_2017_SR_B3
-red18	<-	p18$p193r32_2018_SR_B3
-red20	<-	p20$p193r32_2020_SR_B3
+red84<-p84$p193r32_1984_SR_B3
+red87<-p87$p193r32_1987_SR_B3
+red88<-p88$p193r32_1988_SR_B3
+red91<-p91$p193r32_1991_SR_B3
+red92<-p92$p193r32_1992_SR_B3
+red95<-p95$p193r32_1995_SR_B3
+red96<-p96$p193r32_1996_SR_B3
+red97<-p97$p193r32_1997_SR_B3
+red99<-p99$p193r32_1999_SR_B3
+red00<-p00$p193r32_2000_SR_B3
+red02<-p02$p193r32_2002b_SR_B3
+red14<-p14$p193r32_2014_SR_B3
+red15<-p15$p193r32_2015_SR_B3
+red17<-p17$p193r32_2017_SR_B3
+red18<-p18$p193r32_2018_SR_B3
+red20<-p20$p193r32_2020_SR_B3
 
-ndvi84	<-	(nir84-red84)/(nir84+ red84)
-ndvi85	<-	(nir85-red85)/(nir85+	red85)
-ndvi87	<-	(nir87-red87)/(nir87+ red87)
-ndvi88	<-	(nir88-red88)/(nir88+	red88)
-ndvi91	<-	(nir91-red91)/(nir91+	red91)
-ndvi92	<-	(nir92-red92)/(nir92+ red92)
-ndvi95	<-	(nir95-red95)/(nir95+	red95)
-ndvi96	<-	(nir96-red96)/(nir96+	red96)
-ndvi97	<-	(nir97-red97)/(nir97+	red97)
-ndvi99	<-	(nir99-red99)/(nir99+	red99)
-ndvi00	<-	(nir00-red00)/(nir00+	red00)
-ndvi02	<-	(nir02-red02)/(nir02+	red02)
-ndvi14	<-	(nir14-red14)/(nir14+	red14)
-ndvi15	<-	(nir15-red15)/(nir15+	red15)
-ndvi17	<-	(nir17-red17)/(nir17+ red17)
-ndvi18	<-	(nir18-red18)/(nir18+	red18)
-ndvi20	<-	(nir20-red20)/(nir20+	red20)
+ndvi84<-(nir84-red84)/(nir84+ red84)
+ndvi87<-(nir87-red87)/(nir87+ red87)
+ndvi88<-(nir88-red88)/(nir88+	red88)
+ndvi91<-(nir91-red91)/(nir91+	red91)
+ndvi92<-(nir92-red92)/(nir92+ red92)
+ndvi95<-(nir95-red95)/(nir95+	red95)
+ndvi96<-(nir96-red96)/(nir96+	red96)
+ndvi97<-(nir97-red97)/(nir97+	red97)
+ndvi99<-(nir99-red99)/(nir99+	red99)
+ndvi00<-(nir00-red00)/(nir00+	red00)
+ndvi02<-(nir02-red02)/(nir02+	red02)
+ndvi14<-(nir14-red14)/(nir14+	red14)
+ndvi15<-(nir15-red15)/(nir15+	red15)
+ndvi17<-(nir17-red17)/(nir17+ red17)
+ndvi18<-(nir18-red18)/(nir18+	red18)
+ndvi20<-(nir20-red20)/(nir20+	red20)
+
+diffndvi<-ndvi87-ndvi20
+#cl <- colorRampPalette(c("dark blue", "light blue", "orange", "yellow"))(100)
+plot(diffndvi, col=cl, main="NDVI's difference between 2020 and 1987")
 
 
 ### 3.3 PCA
 p84pca <- rasterPCA(p84)
-p85pca <- rasterPCA(p85)
 p87pca <- rasterPCA(p87)
 p88pca <- rasterPCA(p88)
 p91pca <- rasterPCA(p91)
@@ -352,7 +354,6 @@ p18pca <- rasterPCA(p18)
 p20pca <- rasterPCA(p20)
 
 p84pc1<-p84pca$map$PC1
-p85pc1<-p85pca$map$PC1
 p87pc1<-p87pca$map$PC1
 p88pc1<-p88pca$map$PC1
 p91pc1<-p91pca$map$PC1
@@ -369,103 +370,176 @@ p17pc1<-p17pca$map$PC1
 p18pc1<-p18pca$map$PC1
 p20pc1<-p20pca$map$PC1
 
-# 3.4 Rappresentazione grafica
+#cl <- colorRampPalette(c("dark blue", "light blue", "red", "yellow"))(100)
+diffpc1<-p87pc1-p20pc1
+plot(diffpc1, col=cl, main"PC1's difference between 2020 and 1987")
+
+par(mfrow=c(1,2))
+plot(p92pc1, col=cl)
+plot(p18pc1, col=cl)
+
+### Land Cover
+
+#######################################################
+# 4. Analisi statistiche
+
+### RAO'S Q
+
+
+### NDVI
+## Deviazione standard
+
+ndvi84_sd3 <- focal(ndvi84,w=matrix(1/9, nrow=3, ncol=3), fun=sd)
+ndvi85_sd3 <- focal(ndvi85,w=matrix(1/9, nrow=3, ncol=3), fun=sd)
+ndvi87_sd3 <- focal(ndvi87,w=matrix(1/9, nrow=3, ncol=3), fun=sd)
+ndvi88_sd3 <- focal(ndvi88,w=matrix(1/9, nrow=3, ncol=3), fun=sd)
+ndvi91_sd3 <- focal(ndvi91,w=matrix(1/9, nrow=3, ncol=3), fun=sd)
+ndvi92_sd3 <- focal(ndvi92,w=matrix(1/9, nrow=3, ncol=3), fun=sd)
+ndvi95_sd3 <- focal(ndvi95,w=matrix(1/9, nrow=3, ncol=3), fun=sd)
+ndvi96_sd3 <- focal(ndvi96,w=matrix(1/9, nrow=3, ncol=3), fun=sd)
+ndvi97_sd3 <- focal(ndvi97,w=matrix(1/9, nrow=3, ncol=3), fun=sd)
+ndvi99_sd3 <- focal(ndvi99,w=matrix(1/9, nrow=3, ncol=3), fun=sd)
+ndvi00_sd3 <- focal(ndvi00,w=matrix(1/9, nrow=3, ncol=3), fun=sd)
+ndvi02_sd3 <- focal(ndvi02,w=matrix(1/9, nrow=3, ncol=3), fun=sd)
+ndvi14_sd3 <- focal(ndvi14,w=matrix(1/9, nrow=3, ncol=3), fun=sd)
+ndvi15_sd3 <- focal(ndvi15,w=matrix(1/9, nrow=3, ncol=3), fun=sd)
+ndvi17_sd3 <- focal(ndvi17,w=matrix(1/9, nrow=3, ncol=3), fun=sd)
+ndvi18_sd3 <- focal(ndvi18,w=matrix(1/9, nrow=3, ncol=3), fun=sd)
+ndvi20_sd3 <- focal(ndvi20,w=matrix(1/9, nrow=3, ncol=3), fun=sd)
+
+
+## Media
+
+ndvi84_m3 <- focal(ndvi84,w=matrix(1/9, nrow=3, ncol=3), fun=mean)
+ndvi87_m3 <- focal(ndvi87,w=matrix(1/9, nrow=3, ncol=3), fun=mean)
+ndvi88_m3 <- focal(ndvi88,w=matrix(1/9, nrow=3, ncol=3), fun=mean)
+ndvi91_m3 <- focal(ndvi91,w=matrix(1/9, nrow=3, ncol=3), fun=mean)
+ndvi92_m3 <- focal(ndvi92,w=matrix(1/9, nrow=3, ncol=3), fun=mean)
+ndvi95_m3 <- focal(ndvi95,w=matrix(1/9, nrow=3, ncol=3), fun=mean)
+ndvi96_m3 <- focal(ndvi96,w=matrix(1/9, nrow=3, ncol=3), fun=mean)
+ndvi97_m3 <- focal(ndvi97,w=matrix(1/9, nrow=3, ncol=3), fun=mean)
+ndvi99_m3 <- focal(ndvi99,w=matrix(1/9, nrow=3, ncol=3), fun=mean)
+ndvi00_m3 <- focal(ndvi00,w=matrix(1/9, nrow=3, ncol=3), fun=mean)
+ndvi02_m3 <- focal(ndvi02,w=matrix(1/9, nrow=3, ncol=3), fun=mean)
+ndvi14_m3 <- focal(ndvi14,w=matrix(1/9, nrow=3, ncol=3), fun=mean)
+ndvi15_m3 <- focal(ndvi15,w=matrix(1/9, nrow=3, ncol=3), fun=mean)
+ndvi17_m3 <- focal(ndvi17,w=matrix(1/9, nrow=3, ncol=3), fun=mean)
+ndvi18_m3 <- focal(ndvi18,w=matrix(1/9, nrow=3, ncol=3), fun=mean)
+ndvi20_m3 <- focal(ndvi20,w=matrix(1/9, nrow=3, ncol=3), fun=mean)
+
+### PCA
+## Standard deviation of PC1
+
+p84pc1_sd3<-focal(p84pc1, w=matrix(1/9, nrow=3, ncol=3), fun=sd)
+p87pc1_sd3<-focal(p87pc1, w=matrix(1/9, nrow=3, ncol=3), fun=sd)
+p88pc1_sd3<-focal(p88pc1, w=matrix(1/9, nrow=3, ncol=3), fun=sd)
+p91pc1_sd3<-focal(p91pc1, w=matrix(1/9, nrow=3, ncol=3), fun=sd)
+p92pc1_sd3<-focal(p92pc1, w=matrix(1/9, nrow=3, ncol=3), fun=sd)
+p95pc1_sd3<-focal(p95pc1, w=matrix(1/9, nrow=3, ncol=3), fun=sd)
+p96pc1_sd3<-focal(p96pc1, w=matrix(1/9, nrow=3, ncol=3), fun=sd)
+p97pc1_sd3<-focal(p97pc1, w=matrix(1/9, nrow=3, ncol=3), fun=sd)
+p99pc1_sd3<-focal(p99pc1, w=matrix(1/9, nrow=3, ncol=3), fun=sd)
+p00pc1_sd3<-focal(p00pc1, w=matrix(1/9, nrow=3, ncol=3), fun=sd)
+p02pc1_sd3<-focal(p02pc1, w=matrix(1/9, nrow=3, ncol=3), fun=sd)
+p14pc1_sd3<-focal(p14pc1, w=matrix(1/9, nrow=3, ncol=3), fun=sd)
+p15pc1_sd3<-focal(p15pc1, w=matrix(1/9, nrow=3, ncol=3), fun=sd)
+p17pc1_sd3<-focal(p17pc1, w=matrix(1/9, nrow=3, ncol=3), fun=sd)
+p18pc1_sd3<-focal(p18pc1, w=matrix(1/9, nrow=3, ncol=3), fun=sd)
+p20pc1_sd3<-focal(p20pc1, w=matrix(1/9, nrow=3, ncol=3), fun=sd)
+
+
+
+
+
+
+#######################################################
+# 5 Export dei grafici in PDF
 
 ### Rao's Q index
 
-pdf("Rao's_Q.pdf")
+pdf("Rao's_Q_full.pdf")
 ggplot()+
-geom_raster(rao84a, mapping=aes(x = x, y = y, fill = layer))+
+geom_raster(rao84, mapping=aes(x = x, y = y, fill = layer))+
 scale_fill_viridis()+
 ggtitle("Rao's Q index, Asinara 1984")
 
 ggplot()+
-geom_raster(rao85a, mapping=aes(x = x, y = y, fill = layer))+
-scale_fill_viridis()+
-ggtitle("Rao's Q index, Asinara 1985")
-
-ggplot()+
-geom_raster(rao87a, mapping=aes(x = x, y = y, fill = layer))+
+geom_raster(rao87, mapping=aes(x = x, y = y, fill = layer))+
 scale_fill_viridis()+
 ggtitle("Rao's Q index, Asinara 1987")
 
 ggplot()+
-geom_raster(rao88a, mapping=aes(x = x, y = y, fill = layer))+
+geom_raster(rao88, mapping=aes(x = x, y = y, fill = layer))+
 scale_fill_viridis()+
 ggtitle("Rao's Q index, Asinara 1988")
 
 ggplot()+
-geom_raster(rao91a, mapping=aes(x = x, y = y, fill = layer))+
+geom_raster(rao91, mapping=aes(x = x, y = y, fill = layer))+
 scale_fill_viridis()+
 ggtitle("Rao's Q index, Asinara 1991")
 
 ggplot()+
-geom_raster(rao92a, mapping=aes(x = x, y = y, fill = layer))+
+geom_raster(rao92, mapping=aes(x = x, y = y, fill = layer))+
 scale_fill_viridis()+
 ggtitle("Rao's Q index, Asinara 1992")
 
 ggplot()+
-geom_raster(rao95a, mapping=aes(x = x, y = y, fill = layer))+
+geom_raster(rao95, mapping=aes(x = x, y = y, fill = layer))+
 scale_fill_viridis()+
 ggtitle("Rao's Q index, Asinara 1995")
 
 ggplot()+
-geom_raster(rao96a, mapping=aes(x = x, y = y, fill = layer))+
+geom_raster(rao96, mapping=aes(x = x, y = y, fill = layer))+
 scale_fill_viridis()+
 ggtitle("Rao's Q index, Asinara 1996")
 
 ggplot()+
-geom_raster(rao97a, mapping=aes(x = x, y = y, fill = layer))+
+geom_raster(rao97, mapping=aes(x = x, y = y, fill = layer))+
 scale_fill_viridis()+
 ggtitle("Rao's Q index, Asinara 1997")
 
 ggplot()+
-geom_raster(rao99a, mapping=aes(x = x, y = y, fill = layer))+
+geom_raster(rao99, mapping=aes(x = x, y = y, fill = layer))+
 scale_fill_viridis()+
 ggtitle("Rao's Q index, Asinara 1999")
 
 ggplot()+
-geom_raster(rao00a, mapping=aes(x = x, y = y, fill = layer))+
+geom_raster(rao00, mapping=aes(x = x, y = y, fill = layer))+
 scale_fill_viridis()+
 ggtitle("Rao's Q index, Asinara 2000")
 
 ggplot()+
-geom_raster(rao02a, mapping=aes(x = x, y = y, fill = layer))+
+geom_raster(rao02, mapping=aes(x = x, y = y, fill = layer))+
 scale_fill_viridis()+
 ggtitle("Rao's Q index, Asinara 2002")
 
 
 ggplot()+
-geom_raster(rao14a, mapping=aes(x = x, y = y, fill = layer))+
+geom_raster(rao14, mapping=aes(x = x, y = y, fill = layer))+
 scale_fill_viridis()+
 ggtitle("Rao's Q index, Asinara 2014")
 
 
 ggplot()+
-geom_raster(rao15a, mapping=aes(x = x, y = y, fill = layer))+
+geom_raster(rao15, mapping=aes(x = x, y = y, fill = layer))+
 scale_fill_viridis()+
 ggtitle("Rao's Q index, Asinara 2015")
 
 
 ggplot()+
-geom_raster(rao17a, mapping=aes(x = x, y = y, fill = layer))+
+geom_raster(rao17, mapping=aes(x = x, y = y, fill = layer))+
 scale_fill_viridis()+
 ggtitle("Rao's Q index, Asinara 2017")
 
 ggplot()+
-geom_raster(rao18a, mapping=aes(x = x, y = y, fill = layer))+
+geom_raster(rao18, mapping=aes(x = x, y = y, fill = layer))+
 scale_fill_viridis()+
 ggtitle("Rao's Q index, Asinara 2018")
 
 ggplot()+
-geom_raster(rao20a, mapping=aes(x = x, y = y, fill = layer))+
+geom_raster(rao20, mapping=aes(x = x, y = y, fill = layer))+
 scale_fill_viridis()+
 ggtitle("Rao's Q index, Asinara 2020")
-dev.off()
-
-pdf("Rao's Q.pdf", title="Rao's Q index 1984-2020", paper="a4r")
-grid.arrange(p1, p2, p3, p4, p5, p6, p7, p8, p9, nrow=2, ncol=5)
-grid.arrange(p10, p11, p12, p13, p14, p15, p16, p17, nrow=2, ncol=4)
 dev.off()
 
 
@@ -476,11 +550,6 @@ ggplot()+
 geom_raster(ndvi84, mapping=aes(x = x, y = y, fill = layer))+
 scale_fill_viridis()+
 ggtitle("NDVI Asinara 1984")
-
-ggplot()+
-geom_raster(ndvi85, mapping=aes(x = x, y = y, fill = layer))+
-scale_fill_viridis()+
-ggtitle("NDVI Asinara 1985")
 
 ggplot()+
 geom_raster(ndvi87, mapping=aes(x = x, y = y, fill = layer))+
@@ -558,13 +627,256 @@ scale_fill_viridis()+
 ggtitle("NDVI Asinara 2020")
 dev.off()
 
-par(mfrow=c(1,2))
-plot(ndvi84)
-plot(ndvi20)
-#######################################################
-# 4. Risultati
+### Standard deviation of NDVI
 
+pdf("Standard_deviaion_NDVI.pdf")
+ggplot()+
+geom_raster(ndvi84_sd3, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("Standard deviation of NDVI Asinara 1984")
 
-#######################################################
-# 5. Conclusioni
+ggplot()+
+geom_raster(ndvi87_sd3, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("Standard deviation of NDVI Asinara 1987")
+
+ggplot()+
+geom_raster(ndvi88_sd3, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("Standard deviation of NDVI Asinara 1988")
+
+ggplot()+
+geom_raster(ndvi91_sd3, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("Standard deviation of NDVI Asinara 1991")
+
+ggplot()+
+geom_raster(ndvi92_sd3, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("Standard deviation of NDVI Asinara 1992")
+
+ggplot()+
+geom_raster(ndvi95_sd3, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("Standard deviation of NDVI Asinara 1995")
+
+ggplot()+
+geom_raster(ndvi96_sd3, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("Standard deviation of NDVI Asinara 1996")
+
+ggplot()+
+geom_raster(ndvi97_sd3, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("Standard deviation of NDVI Asinara 1997")
+
+ggplot()+
+geom_raster(ndvi99_sd3, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("Standard deviation of NDVI Asinara 1999")
+
+ggplot()+
+geom_raster(ndvi00_sd3, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("Standard deviation of NDVI Asinara 2000")
+
+ggplot()+
+geom_raster(ndvi02_sd3, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("Standard deviation of NDVI Asinara 2002")
+
+ggplot()+
+geom_raster(ndvi14_sd3, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("Standard deviation of NDVI Asinara 2014")
+
+ggplot()+
+geom_raster(ndvi15_sd3, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("Standard deviation of NDVI Asinara 2015")
+
+ggplot()+
+geom_raster(ndvi17_sd3, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("Standard deviation of NDVI Asinara 2017")
+
+ggplot()+
+geom_raster(ndvi18_sd3, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("Standard deviation of NDVI Asinara 2018")
+
+ggplot()+
+geom_raster(ndvi20_sd3, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("Standard deviation of NDVI Asinara 2020")
+dev.off()
+
+### PCA
+
+pdf("PC1.pdf")
+ggplot()+
+geom_raster(p84pc1, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("PC1 Asinara 1984")
+
+ggplot()+
+geom_raster(p87pc1, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("PC1 Asinara 1987")
+
+ggplot()+
+geom_raster(p88pc1, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("PC1 Asinara 1988")
+
+ggplot()+
+geom_raster(p91pc1, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("PC1 Asinara 1991")
+
+ggplot()+
+geom_raster(p92pc1, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("PC1 Asinara 1992")
+
+ggplot()+
+geom_raster(p95pc1, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("PC1 Asinara 1995")
+
+ggplot()+
+geom_raster(p96pc1, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("PC1 Asinara 1996")
+
+ggplot()+
+geom_raster(p97pc1, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("PC1 Asinara 1997")
+
+ggplot()+
+geom_raster(p99pc1, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("PC1 Asinara 1999")
+
+ggplot()+
+geom_raster(p00pc1, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("PC1 Asinara 2000")
+
+ggplot()+
+geom_raster(p02pc1, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("PC1 Asinara 2002")
+
+ggplot()+
+geom_raster(p14pc1, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("PC1 Asinara 2014")
+
+ggplot()+
+geom_raster(p15pc1, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("PC1 Asinara 2015")
+
+ggplot()+
+geom_raster(p17pc1, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("PC1 Asinara 2017")
+
+ggplot()+
+geom_raster(p18pc1, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("PC1 Asinara 2018")
+
+ggplot()+
+geom_raster(p20pc1, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("PC1 Asinara 2020")
+dev.off()
+
+## Standard deviation of PC1
+
+pdf("Standard_deviation_PC1.pdf")
+ggplot()+
+geom_raster(p84pc1_sd3, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("Standard deviation of PC1 Asinara 1984")
+
+ggplot()+
+geom_raster(p87pc1_sd3, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("Standard deviation of PC1 Asinara 1987")
+
+ggplot()+
+geom_raster(p88pc1_sd3, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("Standard deviation of PC1 Asinara 1988")
+
+ggplot()+
+geom_raster(p91pc1_sd3, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("Standard deviation of PC1 Asinara 1991")
+
+ggplot()+
+geom_raster(p92pc1_sd3, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("Standard deviation of PC1 Asinara 1992")
+
+ggplot()+
+geom_raster(p95pc1_sd3, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("Standard deviation of PC1 Asinara 1995")
+
+ggplot()+
+geom_raster(p96pc1_sd3, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("Standard deviation of PC1 Asinara 1996")
+
+ggplot()+
+geom_raster(p97pc1_sd3, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("Standard deviation of PC1 Asinara 1997")
+
+ggplot()+
+geom_raster(p99pc1_sd3, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("Standard deviation of PC1 Asinara 1999")
+
+ggplot()+
+geom_raster(p00pc1_sd3, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("Standard deviation of PC1 Asinara 2000")
+
+ggplot()+
+geom_raster(p02pc1_sd3, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("Standard deviation of PC1 Asinara 2002")
+
+ggplot()+
+geom_raster(p14pc1_sd3, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("Standard deviation of PC1 Asinara 2014")
+
+ggplot()+
+geom_raster(p15pc1_sd3, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("Standard deviation of PC1 Asinara 2015")
+
+ggplot()+
+geom_raster(p17pc1_sd3, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("Standard deviation of PC1 Asinara 2017")
+
+ggplot()+
+geom_raster(p18pc1_sd3, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("Standard deviation of PC1 Asinara 2018")
+
+ggplot()+
+geom_raster(p20pc1_sd3, mapping=aes(x = x, y = y, fill = layer))+
+scale_fill_viridis()+
+ggtitle("Standard deviation of PC1 Asinara 2020")
+dev.off()
+
 
