@@ -2,7 +2,7 @@
 ## Authors: Matteo Marcantonio, Daniele Da Re, Duccio Rocchini
 
 ## Set working directory and load libraries 
-setwd("/home/TemporalAlfaDiv/")
+setwd("/Users/federicotossani/Asinara/L_image")
 library(raster)
 library(parallel)
 library(fANCOVA) # To automatically select loess smoothing parameters select using aicc
@@ -16,18 +16,14 @@ library(gridExtra)
 library(ggpubr)
 
 #### 1. Load data ####
-load("/home/TemporalAlfaDiv/all_raoQ_5km.RData")
-rao_stack<-stack(rao2000_5km, rao2001_5km ,rao2002_5km ,rao2003_5km ,rao2004_5km ,rao2005_5km,
-                 rao2006_5km, rao2007_5km, rao2008_5km, rao2009_5km, rao2010_5km, rao2011_5km,
-                 rao2012_5km, rao2013_5km, rao2014_5km, rao2015_5km, rao2016_5km)
+asilist<-list.files(pattern="Rao_")
+asimport<-lapply(asilist, brick)
+rao_stack<-stack(asimport)
 
 s<-as.list(rao_stack)
 
-##Cut on Italy
-s_red<-mclapply(s, function(x) {y=crop(x,extent(0,20,36,50)); return(y)},mc.cores=detectCores())
-
 ##Derive values from raster and put them in a 3D array
-rao<-mclapply(s_red,trim,mc.cores=8)
+rao<-mclapply(s,trim,mc.cores=8)
 raoV<-mclapply(rao,getValues, mc.cores=8)
 raoA<-array(as.numeric(unlist(raoV)), dim=c(336, 275, 17))
 
@@ -37,7 +33,7 @@ raoA<-array(as.numeric(unlist(raoV)), dim=c(336, 275, 17))
 #in order to get an approximation to the derivative of the function at each x
 
 stats<-c("mean","min","max")
-xl<-seq(2000:2016)
+xl<-seq(1984:2020)
 outl <- rep( list(matrix(nrow=336, ncol=275)),3 )
 prd <- array( as.numeric(NA), dim=c(336, 275, 17) )
 
@@ -56,8 +52,13 @@ for (r in 1:336) {
   options(warn=0)
 }
 
+#################################
+## IL CODICE SI BLOCCA IN QUESTO PUNTO, R CONTINUA A GIRARE SENZA PORTARE AL RISULTATO. COME SE LA FUNZIONE GIRI ALL'INFINITO
+#################################
+
+
 ##Make an output raster map
-raoTslopes <- stack(s_red[[1]],s_red[[1]],s_red[[1]])
+raoTslopes <- stack(s[[1]],s[[1]],s[[1]])
 
 ##Add mean, min and max matrices
 raoTslopes_out <- stack(lapply(1:3, function(x) {
