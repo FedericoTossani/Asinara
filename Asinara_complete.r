@@ -8,7 +8,7 @@
 ### Intro ###
 
 # Lo scopo di questo progetto è quello di valutare l'eterogeneità vegetale
-# del Parco Nazionale dell'Asinara. Il dataset è composto da 17 immagini Landsat
+# del Parco Nazionale dell'Asinara. Il dataset è composto da 16 immagini Landsat
 # che coprono un arco di tempo che va dal 1984 al 2020.
 # L'idea di questo progetto è nata dalla curiosità di vedere come è cambiata
 # la vegetazione dopo la chiusura del carcere (1998), perchè durante il 
@@ -26,6 +26,7 @@
 #    3.1 Rao's Q index
 #    3.2 NDVI
 #    3.3 PCA
+#    3.4 Land Cover from NDVI
 # 4. Analisi statistiche
 # 5. Rappresentazione grafica e pdf
 
@@ -190,7 +191,7 @@ p17<-brick("Asi_p193r32_2017.grd")
 p18<-brick("Asi_p193r32_2018.grd")
 p20<-brick("Asi_p193r32_2020.grd")
 
-# Sono partito da un numero iniziale di 29 immagini, successivamente ho dovuto ridimensionare il dataset a 17 per le seguenti motivazioni:
+# Sono partito da un numero iniziale di 29 immagini, successivamente ho dovuto ridimensionare il dataset a 16 per le seguenti motivazioni:
 # - utilizzo esclusivo di immagini con path 193 row 032
 # - presenza eccessiva di nuvole
 # - presenza di immagini che necessitavano elaborazioni più complesse o possibili correzioni atmosferiche
@@ -199,6 +200,10 @@ p20<-brick("Asi_p193r32_2020.grd")
 # 3. Where the magic begins
 
 ### 3.1 Rao's Q index ###
+
+# per calcolare l'indice di Rao ho utilizzato il source file scaricabile dall'appendice 1 di:
+# Measuring Rao’s Q diversity index from remote sensing: An open source solution. Duccio Rocchini, Matteo Marcantonio, Carlo Ricotta
+
 rao84<-spectralrao(p84, mode="multidimension", distance_m="euclidean", window=3, shannon=F)
 writeRaster(rao84, filename="Rao_84.grd", format="raster")
 rao87<-spectralrao(p87, mode="multidimension", distance_m="euclidean", window=3, shannon=F)
@@ -312,25 +317,25 @@ red17<-p17$p193r32_2017_SR_B3
 red18<-p18$p193r32_2018_SR_B3
 red20<-p20$p193r32_2020_SR_B3
 
-ndvi84<-(nir84-red84)/(nir84+ red84)
-ndvi87<-(nir87-red87)/(nir87+ red87)
-ndvi88<-(nir88-red88)/(nir88+	red88)
-ndvi91<-(nir91-red91)/(nir91+	red91)
-ndvi92<-(nir92-red92)/(nir92+ red92)
-ndvi95<-(nir95-red95)/(nir95+	red95)
-ndvi96<-(nir96-red96)/(nir96+	red96)
-ndvi97<-(nir97-red97)/(nir97+	red97)
-ndvi99<-(nir99-red99)/(nir99+	red99)
-ndvi00<-(nir00-red00)/(nir00+	red00)
-ndvi02<-(nir02-red02)/(nir02+	red02)
-ndvi14<-(nir14-red14)/(nir14+	red14)
-ndvi15<-(nir15-red15)/(nir15+	red15)
-ndvi17<-(nir17-red17)/(nir17+ red17)
-ndvi18<-(nir18-red18)/(nir18+	red18)
-ndvi20<-(nir20-red20)/(nir20+	red20)
+ndvi84<-(nir84-red84)/(nir84+red84)
+ndvi87<-(nir87-red87)/(nir87+red87)
+ndvi88<-(nir88-red88)/(nir88+red88)
+ndvi91<-(nir91-red91)/(nir91+red91)
+ndvi92<-(nir92-red92)/(nir92+red92)
+ndvi95<-(nir95-red95)/(nir95+red95)
+ndvi96<-(nir96-red96)/(nir96+red96)
+ndvi97<-(nir97-red97)/(nir97+red97)
+ndvi99<-(nir99-red99)/(nir99+red99)
+ndvi00<-(nir00-red00)/(nir00+red00)
+ndvi02<-(nir02-red02)/(nir02+red02)
+ndvi14<-(nir14-red14)/(nir14+red14)
+ndvi15<-(nir15-red15)/(nir15+red15)
+ndvi17<-(nir17-red17)/(nir17+red17)
+ndvi18<-(nir18-red18)/(nir18+red18)
+ndvi20<-(nir20-red20)/(nir20+red20)
 
+#ho fatto la differenza tra l'ndvi della prima e l'ultima immagine per vedere dove sono avvenuti i maggiori cambiamenti nella biomassa dell'isola.
 diffndvi<-ndvi87-ndvi20
-#cl <- colorRampPalette(c("dark blue", "light blue", "orange", "yellow"))(100)
 plot(diffndvi, col=cl, main="NDVI's difference between 2020 and 1987")
 
 
@@ -369,21 +374,74 @@ p17pc1<-p17pca$map$PC1
 p18pc1<-p18pca$map$PC1
 p20pc1<-p20pca$map$PC1
 
-#cl <- colorRampPalette(c("dark blue", "light blue", "red", "yellow"))(100)
+
 diffpc1<-p87pc1-p20pc1
 plot(diffpc1, col=cl, main"PC1's difference between 2020 and 1987")
 
-par(mfrow=c(1,2))
-plot(p92pc1, col=cl)
-plot(p18pc1, col=cl)
+summary(p87pca$model)
+#Importance of components:
+#                              Comp.1       Comp.2       Comp.3       Comp.4       Comp.5       Comp.6       Comp.7
+# Standard deviation     5032.3513322 752.72642627 565.48919355 3.830667e+02 1.500440e+02 1.278084e+02 9.139957e+01
+# Proportion of Variance    0.9590864   0.02145805   0.01211057 5.557311e-03 8.526154e-04 6.186355e-04 3.163764e-04
+# Cumulative Proportion     0.9590864   0.98054449   0.99265506 9.982124e-01 9.990650e-01 9.996836e-01 1.000000e+00
 
-### Land Cover
+summary(p20pca$model)
+# Importance of components:
+#                              Comp.1       Comp.2       Comp.3       Comp.4       Comp.5       Comp.6       Comp.7
+# Standard deviation     5775.3009991 972.20292407 4.187928e+02 3.166978e+02 1.774874e+02 1.020659e+02 8.582676e+01
+# Proportion of Variance    0.9633162   0.02729817 5.065451e-03 2.896742e-03 9.098184e-04 3.008715e-04 2.127478e-04
+# Cumulative Proportion     0.9633162   0.99061437 9.956798e-01 9.985766e-01 9.994864e-01 9.997873e-01 1.000000e+00
+
+### 3.4 Land Cover
+
+# attraverso unsuperclass faccio una classificazione dell'ndvi delle immagini per ottenere una mappa che mostri la componente vegetale rispetto al suolo.
+set.seed(42)
+ndvi87c<-unsuperClass(ndvi87, nClasses=3)
+plot(ndvi87c$map)
+
+set.seed(42)
+ndvi20c<-unsuperClass(ndvi20, nClasses=3)
+plot(ndvi20c$map)
+
+#con la funzione freq valuto la frequenza dei pixel di ogni classe.
+freq(ndvi20c$map)
+#      value  count
+# [1,]     1  43029
+# [2,]     2 243325
+# [3,]     3  19490
+
+freq(ndvi87c$map)
+#      value  count
+# [1,]     1  23691
+# [2,]     2 243105
+# [3,]     3  39048
+
+#la clsse 2 è oviamente il mare, mentre la 1 e la 3 fanno riferimento alla vegetazione e alle suolo.
+#purtroppo nelle 2 immagini si sono invertite nonostante l'utilizzo di setseed.
+
+#procediamo adesso a fare una proporzione
+tot20<-43029+19490
+veg20<-43029
+soil20<-19490
+
+tot87<-39048+23691
+veg87<-39048
+soil87<-23691
+
+prop20<-(veg20/tot20)*100
+prop87<-(veg87/tot87)*100
+
+ prop20
+# [1] 68.82548
+ prop87
+# [1] 62.2388
+
+#siamo passati dal 62.2% al 68.8%
+
+#nella proporzione ho ho usato direttamente la frequenza per evitare che il conteggio del mare
 
 #######################################################
 # 4. Analisi statistiche
-
-### RAO'S Q
-
 
 ### NDVI
 ## Deviazione standard
@@ -448,11 +506,6 @@ p15pc1_sd3<-focal(p15pc1, w=matrix(1/9, nrow=3, ncol=3), fun=sd)
 p17pc1_sd3<-focal(p17pc1, w=matrix(1/9, nrow=3, ncol=3), fun=sd)
 p18pc1_sd3<-focal(p18pc1, w=matrix(1/9, nrow=3, ncol=3), fun=sd)
 p20pc1_sd3<-focal(p20pc1, w=matrix(1/9, nrow=3, ncol=3), fun=sd)
-
-
-
-
-
 
 #######################################################
 # 5 Export dei grafici in PDF
