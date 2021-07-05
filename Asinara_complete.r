@@ -26,9 +26,8 @@
 #    3.1 Rao's Q index
 #    3.2 NDVI
 #    3.3 PCA
-#    3.4 Rappresentazione grafica
 # 4. Analisi statistiche
-# 5. Conclusioni
+# 5. Rappresentazione grafica e pdf
 
 #######################################################
 ## 1. Library & Working directory
