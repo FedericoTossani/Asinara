@@ -407,6 +407,9 @@ ndvi17_sd3 <- focal(ndvi17,w=matrix(1/9, nrow=3, ncol=3), fun=sd)
 ndvi18_sd3 <- focal(ndvi18,w=matrix(1/9, nrow=3, ncol=3), fun=sd)
 ndvi20_sd3 <- focal(ndvi20,w=matrix(1/9, nrow=3, ncol=3), fun=sd)
 
+plot(ndvi87_sd3, col=cl, main="Standard deviation NDVI 1987")
+plot(ndvi02_sd3, col=cl, main="Standard deviation NDVI 2002")
+plot(ndvi20_sd3, col=cl, main="Standard deviation NDVI 2020")
 
 ## Media
 
@@ -789,10 +792,23 @@ geom_raster(p18pc1, mapping=aes(x = x, y = y, fill = layer))+
 scale_fill_viridis()+
 ggtitle("PC1 Asinara 2018")
 
-ggplot()+
-geom_raster(p20pc1, mapping=aes(x = x, y = y, fill = layer))+
-scale_fill_viridis()+
-ggtitle("PC1 Asinara 2020")
+pdf("PC1.pdf")
+plot(p84pc1, col=cl, main="PC1 Asinara 1984")
+plot(p87pc1, col=cl, main="PC1 Asinara 1987")
+plot(p88pc1, col=cl, main="PC1 Asinara 1988")
+plot(p91pc1, col=cl, main="PC1 Asinara 1991")
+plot(p92pc1, col=cl, main="PC1 Asinara 1992")
+plot(p95pc1, col=cl, main="PC1 Asinara 1995")
+plot(p96pc1, col=cl, main="PC1 Asinara 1996")
+plot(p97pc1, col=cl, main="PC1 Asinara 1997")
+plot(p99pc1, col=cl, main="PC1 Asinara 1999")
+plot(p00pc1, col=cl, main="PC1 Asinara 2000")
+plot(p02pc1, col=cl, main="PC1 Asinara 2002")
+plot(p14pc1, col=cl, main="PC1 Asinara 2014")
+plot(p15pc1, col=cl, main="PC1 Asinara 2015")
+plot(p17pc1, col=cl, main="PC1 Asinara 2017")
+plot(p18pc1, col=cl, main="PC1 Asinara 2018")
+plot(p20pc1, col=cl, main="PC1 Asinara 2020")
 dev.off()
 
 ## Standard deviation of PC1
